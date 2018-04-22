@@ -27,22 +27,22 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
-        OscP5 oscp5;
-        OscMessage theOscMessage;
+        //OscP5 oscp5;
+        //OscMessage theOscMessage;
         Connection conn = null;
         Statement stm = null;
         ResultSet rs = null;
-        //DBconnection connect = null;
+        DBconnection connect = null;
+        conn = connect.getMysql().getConnection();
         String updateValues = "UPDATE cogVal SET mLeft = ?, mRight = ?," +
                 " forward = ?, backward = ?, meditation = ?, excitement = ?, WHERE id = ?;";
         PreparedStatement preStm = conn.prepareStatement(updateValues);
-        conn = getMysql().getConnection();
         stm = conn.createStatement();
 
 
 
         try {
-            OSCPortIn receiver = new OSCPortIn(7400);
+            OSCPortIn receiver = new OSCPortIn(15000);
             OSCListener listener = new OSCListener() {
                 @Override
                 public void acceptMessage(Date time, OSCMessage message) {
@@ -75,9 +75,13 @@ public class Main {
 
                         excit = Float.parseFloat(myMessage);
 
+                    } else if (message.getAddress().contains("/test")) {
+
+                        System.out.println(myMessage);
                     }
 
-                    try {
+
+                        try {
                         preStm.setFloat(1, directLeft);
                         preStm.setFloat(2, directRight);
                         preStm.setFloat(3, directForward);
@@ -95,6 +99,7 @@ public class Main {
             };
 
             receiver.addListener("/COG/LEFT", listener);
+            receiver.addListener("/test", listener);
             receiver.addListener("/COG/RIGHt", listener);
             receiver.addListener("/COG/ROTATE_REVERSE", listener);
             receiver.addListener("/COG/ROTATE_FORWARD", listener);
@@ -112,20 +117,20 @@ public class Main {
         conn.close();
     }
 
-    public static DataSource getMysql() {
-
-        MysqlDataSource dataSource = new MysqlDataSource();
-
-        dataSource.setDatabaseName("Project");
-        dataSource.setUser("emotiv");
-        dataSource.setPassword("499");
-        dataSource.setServerName("localhost");
-
-
-
-
-        return dataSource;
-    }
+//    public static DataSource getMysql() {
+//
+//        MysqlDataSource dataSource = new MysqlDataSource();
+//
+//        dataSource.setDatabaseName("Project");
+//        dataSource.setUser("emotiv");
+//        dataSource.setPassword("499");
+//        dataSource.setServerName("localhost");
+//
+//
+//
+//
+//        return dataSource;
+//    }
 
 
 }
