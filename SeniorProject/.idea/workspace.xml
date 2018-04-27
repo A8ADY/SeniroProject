@@ -27,8 +27,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
+            <state relative-caret-position="300">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -36,24 +36,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TrainingSession.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Login.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/interfaces/Login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="146" column="26" lean-forward="true" selection-start-line="146" selection-start-column="26" selection-end-line="146" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TrainingSession.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/TrainingSession.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="849">
-              <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+            <state relative-caret-position="-1191">
+              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#378#385#0" expanded="true" />
-                <element signature="e#456#463#0" expanded="true" />
-                <element signature="e#540#547#0" expanded="true" />
+                <element signature="e#354#361#0" expanded="true" />
+                <element signature="e#407#414#0" expanded="true" />
+                <element signature="e#463#470#0" expanded="true" />
+                <element signature="e#518#525#0" expanded="true" />
+                <element signature="e#569#576#0" expanded="true" />
                 <element signature="e#622#629#0" expanded="true" />
-                <element signature="e#690#697#0" expanded="true" />
-                <element signature="e#762#769#0" expanded="true" />
-                <marker date="1524849420346" expanded="true" signature="1042:1087" ph="UPDATE cogVa... " />
-                <marker date="1524849420346" expanded="true" signature="1116:1156" ph="UPDATE cogVa... " />
-                <marker date="1524849420346" expanded="true" signature="1186:1227" ph="UPDATE cogVa... " />
-                <marker date="1524849420346" expanded="true" signature="1259:1301" ph="UPDATE cogVa... " />
-                <marker date="1524849420346" expanded="true" signature="1334:1377" ph="UPDATE cogVa... " />
+                <marker date="1524849712831" expanded="true" signature="872:917" ph="UPDATE cogVa... " />
+                <marker date="1524849712831" expanded="true" signature="946:986" ph="UPDATE cogVa... " />
+                <marker date="1524849712831" expanded="true" signature="1016:1057" ph="UPDATE cogVa... " />
+                <marker date="1524849712831" expanded="true" signature="1089:1131" ph="UPDATE cogVa... " />
+                <marker date="1524849712831" expanded="true" signature="1164:1207" ph="UPDATE cogVa... " />
               </folding>
             </state>
           </provider>
@@ -110,6 +120,7 @@
         <option value="$PROJECT_DIR$/src/com/company/javaOsc/OSCPortIn.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/src/com/company/TrainingSession.java" />
+        <option value="$PROJECT_DIR$/src/interfaces/Login.java" />
       </list>
     </option>
   </component>
@@ -177,6 +188,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="interfaces" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeniorProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeniorProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="company" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -195,7 +224,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Login">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.company.Main" />
@@ -211,6 +240,26 @@
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="interfaces.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="interfaces.Login" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="SeniorProject" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
@@ -563,12 +612,14 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Login" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.Login" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -585,12 +636,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520688041176</updated>
-      <workItem from="1520688047604" duration="51327000" />
+      <workItem from="1520688047604" duration="53756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51327000" />
+    <option name="totallyTimeSpent" value="53756000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="738" extended-state="0" />
@@ -801,34 +852,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/TrainingSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1191">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#354#361#0" expanded="true" />
+            <element signature="e#407#414#0" expanded="true" />
+            <element signature="e#463#470#0" expanded="true" />
+            <element signature="e#518#525#0" expanded="true" />
+            <element signature="e#569#576#0" expanded="true" />
+            <element signature="e#622#629#0" expanded="true" />
+            <marker date="1524849712831" expanded="true" signature="872:917" ph="UPDATE cogVa... " />
+            <marker date="1524849712831" expanded="true" signature="946:986" ph="UPDATE cogVa... " />
+            <marker date="1524849712831" expanded="true" signature="1016:1057" ph="UPDATE cogVa... " />
+            <marker date="1524849712831" expanded="true" signature="1089:1131" ph="UPDATE cogVa... " />
+            <marker date="1524849712831" expanded="true" signature="1164:1207" ph="UPDATE cogVa... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/TrainingSession.java">
+    <entry file="file://$PROJECT_DIR$/src/interfaces/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="849">
-          <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#378#385#0" expanded="true" />
-            <element signature="e#456#463#0" expanded="true" />
-            <element signature="e#540#547#0" expanded="true" />
-            <element signature="e#622#629#0" expanded="true" />
-            <element signature="e#690#697#0" expanded="true" />
-            <element signature="e#762#769#0" expanded="true" />
-            <marker date="1524849420346" expanded="true" signature="1042:1087" ph="UPDATE cogVa... " />
-            <marker date="1524849420346" expanded="true" signature="1116:1156" ph="UPDATE cogVa... " />
-            <marker date="1524849420346" expanded="true" signature="1186:1227" ph="UPDATE cogVa... " />
-            <marker date="1524849420346" expanded="true" signature="1259:1301" ph="UPDATE cogVa... " />
-            <marker date="1524849420346" expanded="true" signature="1334:1377" ph="UPDATE cogVa... " />
-          </folding>
+        <state relative-caret-position="345">
+          <caret line="146" column="26" lean-forward="true" selection-start-line="146" selection-start-column="26" selection-end-line="146" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

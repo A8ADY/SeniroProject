@@ -17,26 +17,8 @@ import java.util.Date;
 
 public class Main {
 
-    static float directLeft;
-    static float directRight;
-    static float directBackward;
-    static float directForward;
-    static float med;
-    static float excit;
-    //static float push;
-    //static float pull;
-
     public static void main(String[] args) throws SQLException, SocketException, UnknownHostException {
 
-
-        //OscP5 oscp5;
-        //OscMessage theOscMessage;
-        Connection conn = null;
-        Statement stm = null;
-        ResultSet rs = null;
-        DBconnection connect = null;
-        conn = connect.getMysql().getConnection();
-        stm = conn.createStatement();
         TrainingSession train = new TrainingSession(5);
 
 //        OSCPortOut sender = new OSCPortOut();

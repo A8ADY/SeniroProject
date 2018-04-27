@@ -15,19 +15,12 @@ import java.util.Date;
 public class TrainingSession {
 
 
-    //float directLeft;
     ArrayList<Float> left = new ArrayList<Float>();
-    //float directRight;
     ArrayList<Float> right = new ArrayList<Float>();
-    //float directBackward;
     ArrayList<Float> backward = new ArrayList<Float>();
-    //float directForward;
     ArrayList<Float> forward = new ArrayList<Float>();
-    //float med;
     ArrayList<Float> med = new ArrayList<Float>();
-    //float excit;
     ArrayList<Float> excit = new ArrayList<Float>();
-    //Connection conn = null;
     Statement stm = null;
     ResultSet rs = null;
     DBconnection connect = null;
