@@ -5,9 +5,7 @@ import com.illposed.osc.OSCMessage;
 import com.illposed.osc.OSCPortIn;
 
 import java.net.SocketException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,41 +27,31 @@ public class TrainingSession {
     ArrayList<Float> med = new ArrayList<Float>();
     //float excit;
     ArrayList<Float> excit = new ArrayList<Float>();
-    Connection conn = null;
+    //Connection conn = null;
     Statement stm = null;
     ResultSet rs = null;
     DBconnection connect = null;
     OSCPortIn receiver;
     OSCListener listener;
     int userID;
+    Connection conn = connect.getMysql().getConnection();
+    String updateMeditation = "UPDATE cogVal SET meditation = ? WHERE id = ?;";
+    String updateLeft = "UPDATE cogVal SET mLeft = ? WHERE id = ?;";
+    String updateRight = "UPDATE cogVal SET mRight = ? WHERE id = ?;";
+    String updateForward = "UPDATE cogVal SET forward = ? WHERE id = ?;";
+    String updateBackward = "UPDATE cogVal SET backward = ? WHERE id = ?;";
+    PreparedStatement preStm;
 
-    public TrainingSession() {
+
+    public TrainingSession(int id) throws SQLException {
+
+        this.userID = id;
 
     }
 
     public float meditation() {
 
-        try {
-            receiver = new OSCPortIn(7400);
-            listener = new OSCListener() {
-                @Override
-                public void acceptMessage(Date date, OSCMessage message) {
-                    Object [] args = message.getArguments();
-                    String myMessage = args[0].toString();
-                    if (message.getAddress().contains("/AFF/Meditation")) {
-                        med.add(Float.parseFloat(myMessage));
-
-                    }
-
-                }
-            };
-
-            receiver.addListener("/AFF/Meditation", listener);
-            receiver.startListening();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
+        messageHandler("/AFF/Meditation", med);
         float k = 0;
         for (int i = 0; i<med.size(); i++) {
 
@@ -72,6 +60,13 @@ public class TrainingSession {
         }
 
         float average = k/med.size();
+        System.out.println("am out and i calculated average");
+        System.out.println("size = " +med.size());
+        //DecimalFormat dc = new DecimalFormat("#.####");
+        updateValues(average, updateMeditation);
+
+        System.out.println("am out boi");
+
 
 
         return average;
@@ -81,31 +76,9 @@ public class TrainingSession {
 
     public float trainLeft() {
 
-        //the method will listen to incoming osc messages and collect values and average it where user is in a
-        //good meditation state and thinking left
-
-        try {
-            receiver = new OSCPortIn(7400);
-            listener = new OSCListener() {
-                @Override
-                public void acceptMessage(Date date, OSCMessage message) {
-                    Object [] args = message.getArguments();
-                    String myMessage = args[0].toString();
-                    float medVal = meditation();
-                        if (medVal >=5 && message.getAddress().contains("/COG/LEFT")) {
-                            left.add(Float.parseFloat(myMessage));
-                        }
-
-                }
-            };
-
-            receiver.addListener("/COG/LEFT", listener);
-            receiver.startListening();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
+        messageHandler("/COG/LEFT", left);
         float k = 0;
+        System.out.println("size= "+left.size());
         for (int i = 0; i<left.size(); i++) {
 
             k += left.get(i);
@@ -113,37 +86,15 @@ public class TrainingSession {
         }
 
         float average = k/left.size();
-
+        System.out.println("average= "+average);
+        updateValues(average, updateLeft);
 
         return average;
     }
 
     public float trainRight() {
 
-        //the method will listen to incoming osc messages and collect values and average it where user is in a
-        //good meditation state and thinking right
-
-        try {
-            receiver = new OSCPortIn(7400);
-            listener = new OSCListener() {
-                @Override
-                public void acceptMessage(Date date, OSCMessage message) {
-                    Object [] args = message.getArguments();
-                    String myMessage = args[0].toString();
-                    float medVal = meditation();
-                    if (medVal >=5 && message.getAddress().contains("/COG/RIGHT")) {
-                        right.add(Float.parseFloat(myMessage));
-                    }
-
-                }
-            };
-
-            receiver.addListener("/COG/RIGHT", listener);
-            receiver.startListening();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
+        messageHandler("/COG/RIGHT", right);
         float k = 0;
         for (int i = 0; i<right.size(); i++) {
 
@@ -152,37 +103,13 @@ public class TrainingSession {
         }
 
         float average = k/right.size();
-
-
+        updateValues(average, updateRight);
         return average;
     }
 
     public float trainForward() {
 
-        //the method will listen to incoming osc messages and collect values and average it where user is in a
-        //good meditation state and thinking forward
-
-        try {
-            receiver = new OSCPortIn(7400);
-            listener = new OSCListener() {
-                @Override
-                public void acceptMessage(Date date, OSCMessage message) {
-                    Object [] args = message.getArguments();
-                    String myMessage = args[0].toString();
-                    float medVal = meditation();
-                    if (medVal >=5 && message.getAddress().contains("/COG/ROTATE_FORWARD")) {
-                        forward.add(Float.parseFloat(myMessage));
-                    }
-
-                }
-            };
-
-            receiver.addListener("/COG/ROTATE_FORWARD", listener);
-            receiver.startListening();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
+        messageHandler("/COG/PUSH", forward);
         float k = 0;
         for (int i = 0; i<forward.size(); i++) {
 
@@ -191,37 +118,13 @@ public class TrainingSession {
         }
 
         float average = k/forward.size();
-
-
+        updateValues(average, updateForward);
         return average;
     }
 
     public float trainBackward() {
 
-        //the method will listen to incoming osc messages and collect values and average it where user is in a
-        //good meditation state and thinking backward
-
-        try {
-            receiver = new OSCPortIn(7400);
-            listener = new OSCListener() {
-                @Override
-                public void acceptMessage(Date date, OSCMessage message) {
-                    Object [] args = message.getArguments();
-                    String myMessage = args[0].toString();
-                    float medVal = meditation();
-                    if (medVal >=5 && message.getAddress().contains("/COG/ROTATE_REVERSE")) {
-                        backward.add(Float.parseFloat(myMessage));
-                    }
-
-                }
-            };
-
-            receiver.addListener("/COG/ROTATE_REVERSE", listener);
-            receiver.startListening();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
+        messageHandler("/COG/PULL", backward);
         float k = 0;
         for (int i = 0; i<backward.size(); i++) {
 
@@ -230,9 +133,55 @@ public class TrainingSession {
         }
 
         float average = k/backward.size();
-
-
+        updateValues(average, updateBackward);
         return average;
     }
+
+    private void updateValues(float avg, String query) {
+
+        //the method will take 2 parameters and update the database based on them
+
+        try {
+            preStm = conn.prepareStatement(query);
+            preStm.setFloat(1, avg);
+            preStm.setInt(2, userID);
+            preStm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void messageHandler(String address, ArrayList list) {
+
+        //the method will take 2 parameters first is the address pattern that is going to be used by the listener
+        //the second parameter is an arraylist that is going to be passed by the caller
+        //the method will start listening to the incoming messages and add it to the list
+
+        try {
+            receiver = new OSCPortIn(7400);
+            listener = new OSCListener() {
+                @Override
+                public void acceptMessage(Date date, OSCMessage message) {
+                    Object [] args = message.getArguments();
+                    String myMessage = args[0].toString();
+                    if (message.getAddress().contains(address)) {
+                        System.out.println("message received");
+                        list.add(Float.parseFloat(myMessage));
+                        System.out.println("address is: "+address);
+                        System.out.println("Message: "+myMessage);
+                        System.out.println("\n");
+
+                    }
+
+                }
+            };
+
+            receiver.addListener(address, listener);
+            receiver.startListening();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
