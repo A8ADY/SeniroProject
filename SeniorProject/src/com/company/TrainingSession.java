@@ -53,14 +53,8 @@ public class TrainingSession {
         }
 
         float average = k/med.size();
-        System.out.println("am out and i calculated average");
-        System.out.println("size = " +med.size());
         //DecimalFormat dc = new DecimalFormat("#.####");
         updateValues(average, updateMeditation);
-
-        System.out.println("am out boi");
-
-
 
         return average;
     }
@@ -79,7 +73,6 @@ public class TrainingSession {
         }
 
         float average = k/left.size();
-        System.out.println("average= "+average);
         updateValues(average, updateLeft);
 
         return average;

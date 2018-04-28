@@ -78,7 +78,7 @@ public class OSCPortIn extends OSCPort implements Runnable {
 		Thread thread = new Thread(this);
 		thread.start();
 		long start = System.currentTimeMillis();
-		long end = start + 5*1000; // 60 seconds * 1000 ms/sec
+		long end = start + 10*1000; // 60 seconds * 1000 ms/sec
 		while (System.currentTimeMillis() < end)
 		{
 

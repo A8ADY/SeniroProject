@@ -6,13 +6,23 @@
 
 package interfaces;
 
+import com.company.DBconnection;
+
+import java.sql.*;
+
 /**
  *
  * @author Arbiter
  */
 public class SignUp extends javax.swing.JFrame {
+    
+    DBconnection connect = null;
+    Connection conn = connect.getMysql().getConnection();
+    Statement stm = conn.createStatement();
+    ResultSet rs = null;
 
-    public SignUp() {
+
+    public SignUp() throws SQLException {
         initComponents();
     }
 
@@ -59,6 +69,11 @@ public class SignUp extends javax.swing.JFrame {
         jLabel8.setText("Password");
 
         jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("M");
@@ -172,6 +187,48 @@ public class SignUp extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        int id = Integer.parseInt(jTextField1.getText());
+        String pass = jTextField2.getText();
+        String fName = jTextField3.getText();
+        String lName = jTextField4.getText();
+        int age = Integer.parseInt(jTextField5.getText());
+        String pNum = jTextField6.getText();
+        String gender = "x";
+        if (jRadioButton1.isSelected()) {
+            gender = "m";
+        } else if (jRadioButton2.isSelected()) {
+            gender = "f";
+        }
+        //String sql = "insert into eeguser values ("+id+", "+fName+", "+lName+", "+age+", "+gender+", "+pNum+", "+pass+");";
+        String sqll = "insert into eeguser values (?, ?, ?, ?, ?, ?, ?)";
+
+        if (jTextField1.getText() != null && pass != null) {
+
+            try {
+                PreparedStatement pre = conn.prepareStatement(sqll);
+                pre.setInt(1, id);
+                pre.setString(2, fName);
+                pre.setString(3, lName);
+                pre.setInt(4, age);
+                pre.setString(5, gender);
+                pre.setString(6, pNum);
+                pre.setString(7, pass);
+//                stm.executeUpdate(sql);
+                pre.execute();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        Control cc = new Control(id);
+        cc.setVisible(true);
+
+    }
 
    
 
