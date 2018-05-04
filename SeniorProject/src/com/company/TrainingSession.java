@@ -2,6 +2,7 @@ package com.company;
 
 import com.illposed.osc.OSCListener;
 import com.illposed.osc.OSCMessage;
+import com.illposed.osc.OSCPort;
 import com.illposed.osc.OSCPortIn;
 
 import java.net.SocketException;
@@ -24,19 +25,21 @@ public class TrainingSession {
     Statement stm = null;
     ResultSet rs = null;
     DBconnection connect = null;
-    OSCPortIn receiver;
-    OSCListener listener;
-    int userID;
+    //OSCPortIn receiver;
+    //OSCListener listener;
+    String userID;
     Connection conn = connect.getMysql().getConnection();
     String updateMeditation = "UPDATE cogVal SET meditation = ? WHERE id = ?;";
     String updateLeft = "UPDATE cogVal SET mLeft = ? WHERE id = ?;";
     String updateRight = "UPDATE cogVal SET mRight = ? WHERE id = ?;";
-    String updateForward = "UPDATE cogVal SET forward = ? WHERE id = ?;";
-    String updateBackward = "UPDATE cogVal SET backward = ? WHERE id = ?;";
+    String updateForward = "UPDATE cogVal SET forward = ? WHERE id = ?";
+    String updateBackward = "UPDATE cogVal SET backward = ? WHERE id = ?";
     PreparedStatement preStm;
+    OSCPortIn receiver;
+    OSCListener listener;
 
 
-    public TrainingSession(int id) throws SQLException {
+    public TrainingSession(String id) throws SQLException {
 
         this.userID = id;
 
@@ -45,6 +48,15 @@ public class TrainingSession {
     public float meditation() {
 
         messageHandler("/AFF/Meditation", med);
+        long start = System.currentTimeMillis();
+        long end = start + 10*1000; // 60 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+
+        }
+        //note to self close socket here
+        receiver.stopListening();
+        receiver.close();
         float k = 0;
         for (int i = 0; i<med.size(); i++) {
 
@@ -96,6 +108,14 @@ public class TrainingSession {
     public float trainForward() {
 
         messageHandler("/COG/PUSH", forward);
+        long start = System.currentTimeMillis();
+        long end = start + 10*1000; // 60 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+
+        }
+        receiver.stopListening();
+        receiver.close();
         float k = 0;
         for (int i = 0; i<forward.size(); i++) {
 
@@ -130,7 +150,7 @@ public class TrainingSession {
         try {
             preStm = conn.prepareStatement(query);
             preStm.setFloat(1, avg);
-            preStm.setInt(2, userID);
+            preStm.setString(2, userID);
             preStm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,7 +176,6 @@ public class TrainingSession {
                         System.out.println("address is: "+address);
                         System.out.println("Message: "+myMessage);
                         System.out.println("\n");
-
                     }
 
                 }
@@ -168,6 +187,5 @@ public class TrainingSession {
             e.printStackTrace();
         }
     }
-
 
 }

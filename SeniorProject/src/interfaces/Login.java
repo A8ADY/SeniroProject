@@ -121,22 +121,22 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
         String id = jTextField1.getText();
         String pass = jPasswordField1.getText();
         try {
-            if (id != null && pass != null) {
-                String sql = "select * from eeguser where id = "+id+" and password = "+pass+";";
+            if (!id.equals("") && !pass.equals("")) {
+                String sql = "select * from eeguser where id ='"+id+"' and password ='"+pass+"'";
                 rs = stm.executeQuery(sql);
                 if (rs.next()) {
 
                     //next interface
-                    Control cr = new Control(Integer.parseInt(id));
+                    Control cr = new Control(id);
                     cr.setVisible(true);
 
                 } else {
@@ -146,7 +146,6 @@ public class Login extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Fields cant be empty");
-                System.out.println("here");
             }
 
         } catch (SQLException e) {
@@ -156,7 +155,7 @@ public class Login extends javax.swing.JFrame {
 
     }
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {
         SignUp ss = null;
         try {
             ss = new SignUp();

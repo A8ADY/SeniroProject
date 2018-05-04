@@ -77,16 +77,17 @@ public class OSCPortIn extends OSCPort implements Runnable {
 		isListening = true;
 		Thread thread = new Thread(this);
 		thread.start();
-		long start = System.currentTimeMillis();
-		long end = start + 10*1000; // 60 seconds * 1000 ms/sec
-		while (System.currentTimeMillis() < end)
-		{
-
-		}
-		System.out.println("DONE");
-		thread.interrupt();
-		System.out.println(thread.isInterrupted());
-
+//		long start = System.currentTimeMillis();
+//		long end = start + 10*1000; // 60 seconds * 1000 ms/sec
+//		while (System.currentTimeMillis() < end)
+//		{
+//
+//		}
+//		System.out.println("DONE");
+//		thread.interrupt();
+//		System.out.println(thread.isInterrupted());
+//		stopListening();
+//		close();
 	}
 	
 	/**

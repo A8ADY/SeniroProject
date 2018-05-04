@@ -8,7 +8,9 @@ package interfaces;
 
 import com.company.DBconnection;
 
+import javax.swing.*;
 import java.sql.*;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -190,11 +192,11 @@ public class SignUp extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
-        int id = Integer.parseInt(jTextField1.getText());
+        String id = jTextField1.getText();
         String pass = jTextField2.getText();
         String fName = jTextField3.getText();
         String lName = jTextField4.getText();
-        int age = Integer.parseInt(jTextField5.getText());
+        String age = jTextField5.getText();
         String pNum = jTextField6.getText();
         String gender = "x";
         if (jRadioButton1.isSelected()) {
@@ -203,34 +205,62 @@ public class SignUp extends javax.swing.JFrame {
             gender = "f";
         }
         //String sql = "insert into eeguser values ("+id+", "+fName+", "+lName+", "+age+", "+gender+", "+pNum+", "+pass+");";
-        String sqll = "insert into eeguser values (?, ?, ?, ?, ?, ?, ?)";
+        String eeg = "insert into eeguser values (?, ?, ?, ?, ?, ?, ?)";
+        String cogval = "insert into cogval (id) values (?)";
 
-        if (jTextField1.getText() != null && pass != null) {
+        if (!id.equals("") && !pass.equals("")) {
 
-            try {
-                PreparedStatement pre = conn.prepareStatement(sqll);
-                pre.setInt(1, id);
-                pre.setString(2, fName);
-                pre.setString(3, lName);
-                pre.setInt(4, age);
-                pre.setString(5, gender);
-                pre.setString(6, pNum);
-                pre.setString(7, pass);
-//                stm.executeUpdate(sql);
-                pre.execute();
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (isValid(id)) {
+
+                try {
+                    PreparedStatement pre = conn.prepareStatement(eeg);
+                    PreparedStatement prestm = conn.prepareStatement(cogval);
+                    pre.setString(1, id);
+                    pre.setString(2, fName);
+                    pre.setString(3, lName);
+                    pre.setString(4, age);
+                    pre.setString(5, gender);
+                    pre.setString(6, pNum);
+                    pre.setString(7, pass);
+                    prestm.setString(1, id);
+                    //stm.executeUpdate(sql);
+                    pre.execute();
+                    prestm.execute();
+                    conn.close();
+
+                    Control cc = new Control(id);
+                    cc.setVisible(true);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Email is not valid");
             }
 
+        } else {
+            JOptionPane.showMessageDialog(null, "Password and Id can't be empty");
         }
-
-        Control cc = new Control(id);
-        cc.setVisible(true);
 
     }
 
-   
+    public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

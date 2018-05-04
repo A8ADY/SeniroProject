@@ -15,13 +15,13 @@ import java.sql.SQLException;
  */
 public class TrainingInterface extends javax.swing.JFrame {
 
-    int userId;
+    String userId;
     TrainingSession train;
 
     /**
      * Creates new form TrainingInterface
      */
-    public TrainingInterface(int id) {
+    public TrainingInterface(String id) {
 
         try {
             train = new TrainingSession(id);
@@ -33,10 +33,10 @@ public class TrainingInterface extends javax.swing.JFrame {
         initComponents();
     }
 
-    public int getId() {
-
-        return this.userId;
-    }
+//    public int getId() {
+//
+//        return this.userId;
+//    }
 
 
     /**

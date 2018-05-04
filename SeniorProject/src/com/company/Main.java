@@ -19,10 +19,10 @@ public class Main {
 
     public static void main(String[] args) throws SQLException, SocketException, UnknownHostException {
 
-        TrainingSession train = new TrainingSession(5);
+        //TrainingSession train = new TrainingSession(5);
 
 //        OSCPortOut sender = new OSCPortOut();
-//        Object argss[] = new Object[2];
+//        Object argss[] = new Object[5];
 //        argss[0] = "hello";
 //        OSCMessage msg = new OSCMessage("/test", argss);
 //        try {
@@ -30,15 +30,6 @@ public class Main {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-
-//        train.meditation();
-//        train.trainLeft();
-//        train.trainRight();
-        train.trainForward();
-
-
-//
-
 
 
     }

@@ -5,7 +5,20 @@
  */
 package interfaces;
 
+import com.company.DBconnection;
 import com.company.TrainingSession;
+import com.illposed.osc.OSCListener;
+import com.illposed.osc.OSCMessage;
+import com.illposed.osc.OSCPortIn;
+import com.illposed.osc.OSCPortOut;
+
+import java.net.SocketException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -13,9 +26,19 @@ import com.company.TrainingSession;
  */
 public class Control extends javax.swing.JFrame {
 
-    int userId;
+    String userId;
+    DBconnection connect = null;
+    Connection conn = connect.getMysql().getConnection();
+    Statement stm = conn.createStatement();
+    ResultSet rs = null;
+    float left = (float)0;
+    float med = (float)0;
+    float right = (float)0;
+    float forward = (float)0;
+    float backward = (float)0;
 
-    public Control(int id) {
+
+    public Control(String id) throws SQLException {
         this.userId = id;
         initComponents();
     }
@@ -36,6 +59,14 @@ public class Control extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+
 
         jButton2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jButton2.setText("Control");
@@ -71,6 +102,81 @@ public class Control extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        Object val[] = new Object[3];
+        String sql = "Select * From cogval where id ='"+userId+"'";
+        try {
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                med = rs.getFloat("meditation");
+                left = rs.getFloat("mLeft");
+                right = rs.getFloat("mRight");
+                forward = rs.getFloat("forward");
+                backward = rs.getFloat("backward");
+            }
+            stm.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            OSCPortIn receiver = new OSCPortIn(7400);
+            OSCListener listener = new OSCListener() {
+                @Override
+                public void acceptMessage(Date date, OSCMessage message) {
+                    Object [] args = message.getArguments();
+                    String myMessage = args[0].toString();
+                    float value = Float.parseFloat(myMessage);
+                    if (message.getAddress().contains("/COG/LIFT") && value >= left) {
+                        System.out.println("message received");
+                        System.out.println("Message: "+myMessage);
+                        val[0] = left;
+                        messageSender("/COG/LIFT",val);
+
+                    } else if (message.getAddress().contains("/COG/RIGHT") && value >= right) {
+                        System.out.println("message received");
+                        System.out.println("Message: "+myMessage);
+                        val[0] = right;
+                        messageSender("/COG/RIGHT",val);
+                    } else if (message.getAddress().contains("/COG/PUSH") && value >= forward) {
+                        System.out.println("message received");
+                        System.out.println("Message: "+myMessage);
+                        val[0] = forward;
+                        messageSender("/COG/PUSH",val);
+                    } else if (message.getAddress().contains("/COG/PULL") && value >= backward) {
+                        System.out.println("message received");
+                        System.out.println("Message: "+myMessage);
+                        val[0] = backward;
+                        messageSender("/COG/PULL",val);
+                    }
+
+                }
+            };
+
+            receiver.addListener("/COG/RIGHT", listener);
+            receiver.addListener("/COG/LEFT", listener);
+            receiver.addListener("/COG/PUSH", listener);
+            receiver.addListener("/COG/PULL", listener);
+            receiver.addListener("/AFF/Meditation", listener);
+            receiver.startListening();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void messageSender(String address, Object[] val) {
+
+        try {
+            OSCPortOut sender = new OSCPortOut();
+            OSCMessage msg = new OSCMessage(address, val);
+            sender.send(msg);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
