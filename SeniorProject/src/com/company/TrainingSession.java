@@ -32,8 +32,8 @@ public class TrainingSession {
     String updateMeditation = "UPDATE cogVal SET meditation = ? WHERE id = ?;";
     String updateLeft = "UPDATE cogVal SET mLeft = ? WHERE id = ?;";
     String updateRight = "UPDATE cogVal SET mRight = ? WHERE id = ?;";
-    String updateForward = "UPDATE cogVal SET forward = ? WHERE id = ?";
-    String updateBackward = "UPDATE cogVal SET backward = ? WHERE id = ?";
+    String updateForward = "UPDATE cogVal SET forward = ? WHERE id = ?;";
+    String updateBackward = "UPDATE cogVal SET backward = ? WHERE id = ?;";
     PreparedStatement preStm;
     OSCPortIn receiver;
     OSCListener listener;
@@ -76,8 +76,15 @@ public class TrainingSession {
     public float trainLeft() {
 
         messageHandler("/COG/LEFT", left);
+        long start = System.currentTimeMillis();
+        long end = start + 10*1000; // 60 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+
+        }
+        receiver.stopListening();
+        receiver.close();
         float k = 0;
-        System.out.println("size= "+left.size());
         for (int i = 0; i<left.size(); i++) {
 
             k += left.get(i);
@@ -85,6 +92,7 @@ public class TrainingSession {
         }
 
         float average = k/left.size();
+        //DecimalFormat dc = new DecimalFormat("#.####");
         updateValues(average, updateLeft);
 
         return average;
@@ -93,6 +101,14 @@ public class TrainingSession {
     public float trainRight() {
 
         messageHandler("/COG/RIGHT", right);
+        long start = System.currentTimeMillis();
+        long end = start + 10*1000; // 60 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+
+        }
+        receiver.stopListening();
+        receiver.close();
         float k = 0;
         for (int i = 0; i<right.size(); i++) {
 
@@ -131,6 +147,14 @@ public class TrainingSession {
     public float trainBackward() {
 
         messageHandler("/COG/PULL", backward);
+        long start = System.currentTimeMillis();
+        long end = start + 10*1000; // 60 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+
+        }
+        receiver.stopListening();
+        receiver.close();
         float k = 0;
         for (int i = 0; i<backward.size(); i++) {
 
@@ -186,6 +210,11 @@ public class TrainingSession {
         } catch (SocketException e) {
             e.printStackTrace();
         }
+    }
+
+    public void close() {
+        receiver.stopListening();
+        receiver.close();
     }
 
 }

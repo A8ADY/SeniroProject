@@ -119,6 +119,7 @@ public class Control extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(left);
 
         try {
             OSCPortIn receiver = new OSCPortIn(7400);
@@ -128,22 +129,24 @@ public class Control extends javax.swing.JFrame {
                     Object [] args = message.getArguments();
                     String myMessage = args[0].toString();
                     float value = Float.parseFloat(myMessage);
-                    if (message.getAddress().contains("/COG/LIFT") && value >= left) {
+                    if (message.getAddress().contains("/COG/LEFT") && value >= left) {
                         System.out.println("message received");
                         System.out.println("Message: "+myMessage);
                         val[0] = left;
-                        messageSender("/COG/LIFT",val);
+                        messageSender("/COG/LEFT",val);
 
                     } else if (message.getAddress().contains("/COG/RIGHT") && value >= right) {
                         System.out.println("message received");
                         System.out.println("Message: "+myMessage);
                         val[0] = right;
                         messageSender("/COG/RIGHT",val);
+
                     } else if (message.getAddress().contains("/COG/PUSH") && value >= forward) {
                         System.out.println("message received");
                         System.out.println("Message: "+myMessage);
                         val[0] = forward;
                         messageSender("/COG/PUSH",val);
+
                     } else if (message.getAddress().contains("/COG/PULL") && value >= backward) {
                         System.out.println("message received");
                         System.out.println("Message: "+myMessage);

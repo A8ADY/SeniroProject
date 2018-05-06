@@ -31,6 +31,11 @@ public class TrainingInterface extends javax.swing.JFrame {
         }
         this.userId = id;
         initComponents();
+        jButton2.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton6.setEnabled(false);
+        jButton8.setEnabled(false);
+        jButton10.setEnabled(false);
     }
 
 //    public int getId() {
@@ -90,7 +95,6 @@ public class TrainingInterface extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea5 = new javax.swing.JTextArea();
-        jPanel6 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -413,19 +417,6 @@ public class TrainingInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Left", jPanel5);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 269, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Stop", jPanel6);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -446,9 +437,10 @@ public class TrainingInterface extends javax.swing.JFrame {
 
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+
+            train.close();
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -458,7 +450,7 @@ public class TrainingInterface extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 
-
+        train.close();
 
     }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,8 +460,8 @@ public class TrainingInterface extends javax.swing.JFrame {
     }
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        train.close();
+    }
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -478,8 +470,8 @@ public class TrainingInterface extends javax.swing.JFrame {
     }
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+        train.close();
+    }
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -488,8 +480,8 @@ public class TrainingInterface extends javax.swing.JFrame {
     }
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        train.close();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -516,7 +508,6 @@ public class TrainingInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
